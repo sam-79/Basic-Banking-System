@@ -7,7 +7,7 @@ import string, time, os
 
 
 app = Flask(__name__)
-app.debug = True
+app.debug = False
 
 # database connection
 if(not os.path.isfile('banking.db')):
