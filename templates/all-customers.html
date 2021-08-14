@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Customer Details</title>
+  <title id="title">Customer Details</title>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
 
@@ -17,6 +17,7 @@
       background-color: #9eeaf9;
       width: 65%;
       padding: 10px;
+      border-radius: 10px;
     }
 
     /* for hiding arrow spinner */
@@ -71,7 +72,7 @@
   <!-- main content -->
 
   <div class="container-fluid" style="padding: 2%">
-    <h1>Customers Data</h1>
+    <h1 id="heading1">Customers Data</h1>
     <div class="d-grid gap-2 d-md-block">
       <button class="btn btn-primary" type="button" onclick="load_data();">
         Refresh
@@ -168,10 +169,10 @@
           <a href="#" class="nav-link px-2 text-muted">Services</a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link px-2 text-muted">Pricing</a>
+          <a href="#" class="nav-link px-2 text-muted">FAQs</a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link px-2 text-muted">FAQs</a>
+          <a href="#" class="nav-link px-2 text-muted">Contact</a>
         </li>
         <li class="nav-item">
           <a href="#" class="nav-link px-2 text-muted">About</a>
@@ -189,8 +190,10 @@
     document.getElementById('transfer-form').style.display= 'none';
     document.getElementById('add-acct-form').style.display= 'none';
     document.getElementById('table-div').style.display= 'block';
+    document.getElementById('heading1').innerHTML= 'Customers Data';
+    document.getElementById('title').innerHTML= 'Customer Details';
 
-    
+ 
 
     // Retrive customer data from DB by AJAX call
     xhr = new XMLHttpRequest();
@@ -238,8 +241,6 @@
         x.appendChild(newOption);
       }
 
-
-
       // Inserting new cell ie. <td> of new row
       let cellOne = newRow.insertCell();
       cellOne.scope = "row";
@@ -256,6 +257,9 @@
     document.getElementById('table-div').style.display= 'none';
     document.getElementById('add-acct-form').style.display= 'none';
     document.getElementById('transfer-form').style.display= 'block';
+    document.getElementById('heading1').innerHTML= 'Transfer Money';
+    document.getElementById('title').innerHTML= 'Transfer Money';
+
 
   }
 
@@ -263,6 +267,8 @@
     document.getElementById('table-div').style.display= 'none';
     document.getElementById('transfer-form').style.display= 'none';
     document.getElementById('add-acct-form').style.display= 'block';
+    document.getElementById('heading1').innerHTML= 'Add Account';
+    document.getElementById('title').innerHTML= 'Add Account';
 
   }
 </script>
