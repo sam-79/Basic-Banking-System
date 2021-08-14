@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>History</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+
+  <style>
+    /* .nav-item:hover{
+      color:
+    } */
+  </style>
+</head>
+
+<body onload="load_data();">
+  <!-- navigation bar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <h2>TSF BANK</h2>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/all-Customers">View Customers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/trans-history">Transfer History</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About Us</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+          <button class="btn btn-outline-success" type="submit">
+            Search
+          </button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <!-- main content -->
+
+  <div class="container-fluid" style="padding: 2%">
+    <h1>Transaction History</h1>
+    <div class="d-grid gap-2 d-md-block">
+      <button class="btn btn-primary" type="button" onclick="load_data();">
+        Refresh
+      </button>
+    </div>
+  </div>
+
+  <div class="container-fluid" id="table-div">
+    <table class="table table-success table-striped" id="dataTable">
+      <!-- Columns Of Table -->
+
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Transaction ID.</th>
+        <th scope="col">Sender</th>
+        <th scope="col">Receiver</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Time</th>
+      </tr>
+    </table>
+  </div>
+
+
+  <!-- footer -->
+  <div class="container navbar-light bg-light">
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item">
+          <a href="#" class="nav-link px-2 text-muted">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link px-2 text-muted">Services</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link px-2 text-muted">Pricing</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link px-2 text-muted">FAQs</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link px-2 text-muted">About</a>
+        </li>
+      </ul>
+      <p class="text-center text-muted">© 2021 Sparks Bank</p>
+    </footer>
+
+  </div>
+</body>
+<script>
+  function load_data() {
+
+    xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        let resp;
+        try {
+          resp = JSON.parse(this.responseText);
+          setValues(resp);
+        } catch {
+          resp = this.responseText;
+          window.alert(resp);
+        }
+      }
+
+      if ((this.readyState == 1) | (this.readyState == 2)) {
+        //add loading circle
+      }
+    };
+
+    xhr.open("POST", "/getHistory");
+    xhr.send();
+  }
+
+  function setValues(data) {
+    let table = document.getElementById("dataTable");
+
+
+    for (let i = 0; i < data.length; i++) {
+      // Insert new row ie. <tr>
+      let newRow = table.insertRow();
+
+
+      // Inserting new cell ie. <td> of new row
+      let cellOne = newRow.insertCell();
+      cellOne.scope = "row";
+      cellOne.innerText = i + 1;
+
+      for (let j = 0; j < data[i].length; j++) {
+        let newCell = newRow.insertCell();
+        newCell.innerText = data[i][j];
+      }
+    }
+  }
+
+</script>
+
+</html>
