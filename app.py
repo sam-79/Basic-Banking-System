@@ -146,7 +146,7 @@ def add():
         conn.commit()
         conn.close()
 
-        return render_template('msg.html', head='Done',msg =f'Account created successfully <br>Account Number: {acct_no}.  Balance: {amount}')
+        return render_template('msg.html', head='Done',msg =f'Account created successfully. Account Number: {acct_no}.  Balance: {amount}')
     except Exception as exp:
         print(exp)
         return render_template('msg.html',head='Error',msg= f'{exp}')
